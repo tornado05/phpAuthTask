@@ -24,7 +24,7 @@
         public function getUser($login, $password)
         {
             $_user = NULL;
-            foreach( self::$data as $key => $val)
+            foreach( self::$_data as $key => $val)
             {
                 if ($val[AppConstants::LOGIN] == $login && $val[AppConstants::LOGIN] == $password)
                 {
@@ -38,7 +38,7 @@
         public function getUserByToken($token, $ip)
         {
             $_user = NULL;
-            foreach( self::$data as $key => $val)
+            foreach( self::$_data as $key => $val)
             {
                 if ($val[AppConstants::TOKEN] == $token && $val[AppConstants::IP] == $ip)
                 {
@@ -53,7 +53,7 @@
         {
             $_user = NULL;
             $_id = NULL;
-            foreach( self::$data as $key => $val)
+            foreach( self::$_data as $key => $val)
             {
                 if ($val[AppConstants::TOKEN] == $token)
                 {
