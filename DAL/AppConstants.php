@@ -1,5 +1,7 @@
 
 <?php
+class AppConstants
+{
     const ID = 'Id';
     const LOGIN = 'Login';
     const PASSWORD = 'Password';
@@ -9,6 +11,5 @@
 
     const FILE_STORAGE = 'File';
     const MYSQL_STORAGE = 'Mysql';
+}
 
-
-?>
