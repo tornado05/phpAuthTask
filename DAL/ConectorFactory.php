@@ -1,6 +1,6 @@
 <?php
 
-    include_once "AppConstants";
+    include_once "../DAL/AppConstants.php";
 
     interface IConnectorFactory
     {

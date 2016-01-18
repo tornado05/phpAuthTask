@@ -1,5 +1,5 @@
 <?php
-
+include_once "../DAL/AppConstants.php";
 
 $usersList = array(
     0 => array(
@@ -39,7 +39,7 @@ class UserListGenerator
     private $_fileName;
     public function __construct($fileName)
     {
-        $this.$_fileName = '../Data/' . $fileName;
+        $this->_fileName = '../Data/' . $fileName;
     }
     
     public function Serialize($userList)
@@ -49,7 +49,7 @@ class UserListGenerator
     
     public function WriteToDisk($usersList)
     {
-        file_put_contents($this.$_fileName, $usersList);
+        file_put_contents($this->_fileName, $usersList);
     }
 }
 
