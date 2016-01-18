@@ -2,31 +2,31 @@
 
 
 $usersList = array(
-    ID => array(
+    0 => array(
         LOGIN => 'test0',
         PASSWORD => 'testpass0',
         IP => '',
         TOKEN => '',
     ),    
-    ID => array(
+    1 => array(
         LOGIN => 'test1',
         PASSWORD => 'testpass1',
         IP => '',
         TOKEN => '',
     ),    
-    ID => array(
+    2 => array(
         LOGIN => 'test2',
         PASSWORD => 'testpass2',
         IP => '',
         TOKEN => '',
     ),    
-    ID => array(
+    3 => array(
         LOGIN => 'test3',
         PASSWORD => 'testpass3',
         IP => '',
         TOKEN => '',
     ),    
-    ID => array(
+    4 => array(
         LOGIN => 'test4',
         PASSWORD => 'testpass4',
         IP => '',
