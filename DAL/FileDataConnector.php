@@ -1,18 +1,21 @@
 <?php
 
-	include_once "./AppConstants.php";
-	include_once "IDataLayer.php";
-
+	require_once "AppConstants.php";
+	require_once "IDataLayer.php";
+	require_once 'usersListGen.php';
+	
 	class FileDataConnector implements IDataLayer
 	{
 		private static $_data = NULL; 
 
 		private function getDataFromFile()
 		{
+			echo 'Getting data...' . "\n";
 			if (self::$_data == NULL)
 			{
-				$fileData = file_get_contents(AppConstants::FILE_NAME);
-				self::$_data = json_decode($fileData);
+				$usersList = new UserListGenerator(AppConstants::FILE_NAME);
+				self::$_data = $usersList->ReadData();
+				echo 'Data loaded. Data length: ' . count(self::$_data) . "\n";
 			}
 		}
 
@@ -26,9 +29,9 @@
 			$_user = NULL;
 			foreach( self::$_data as $key => $val)
 			{
+				echo "\n\nLogin: " . $login . "\n\n";
 				if ($val[AppConstants::LOGIN] == $login && $val[AppConstants::LOGIN] == $password)
 				{
-					
 					$_user = $val;
 					break;
 				}

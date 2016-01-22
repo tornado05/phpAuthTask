@@ -1,7 +1,9 @@
 <?php
-include_once "../DAL/AppConstants.php";
+require_once  'AppConstants.php';
 
-$usersList = array(
+class UserListGenerator
+{
+	private static $_usersList = array(
     0 => array(
         LOGIN => 'test0',
         PASSWORD => 'testpass0',
@@ -34,24 +36,24 @@ $usersList = array(
     ),    
 );
 
-class UserListGenerator
-{
-    private $_fileName;
+private $_fileName;
     public function __construct($fileName)
     {
-        $this->_fileName = '../Data/' . $fileName;
+        $this->_fileName = '/usr/local/www/php/php_dz/phpauthtask/data/' . $fileName;
     }
     
-    public function Serialize($userList)
+    public function ReadData()
     {
-        return json_encode($userList);
+        return json_encode(self::$_usersList, false);
     }
     
-    public function WriteToDisk($usersList)
+    public function WriteData()
     {
-        file_put_contents($this->_fileName, $usersList);
+		echo "file: " . $this->_fileName . "\n";
+        file_put_contents($this->_fileName, self::$_usersList);
     }
 }
 
 
-?>
+
+
