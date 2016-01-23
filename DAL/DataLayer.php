@@ -7,7 +7,7 @@
  * Class DataLayer provides User with the specific type connector to data storage
  */
 class DataLayer
-    {
+{
         private static $_connector = NULL;
 
     /**
@@ -43,5 +43,5 @@ class DataLayer
 	{
 		return self::Init(AppConstants::FILE_STORAGE);
 	}
-	}
+}
 	
