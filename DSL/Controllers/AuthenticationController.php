@@ -17,12 +17,12 @@ class AuthenticationController
 
     protected function  __construct()
     {
-        $this->login = getLoginFromRequest();
-        $this->password = getPasswordFromRequest();
-        $this->token = getUserToken();
-        $this->ip = getIpFromRequest();
+        $this->login = $this->getLoginFromRequest();
+        $this->password = $this->getPasswordFromRequest();
+        $this->token = $this->getUserToken();
+        $this->ip = $this->getIpFromRequest();
     }
-
+	
     /**
      *
      * @return
