@@ -38,18 +38,15 @@ class UserListGenerator
 private $_fileName;
     public function __construct($fileName)
     {
-		$this->_fileName = '../phpauthtask/data/'. $fileName; 
-        if (!file_exists($this->_fileName)){
-             mkdir('../phpauthtask/data', 0700, true);
-             $this->_file = fopen($this->_fileName, "w") or die("Unable to open file!");
-             //file_put_contents($this->_fileName, json_encode($this->usersList));
-			 $this->WriteData();
-        }         /*
 		$path = '../phpauthtask/data/';
-        $this->_fileName = $path . $fileName;
-		$file = fopen($this->_fileName, "w") or die("Unable to open file!");
-		file_put_contents($this->_fileName, json_encode($this->usersList));
-		fclose($file);*/
+		$this->_fileName = $path . $fileName; 
+		
+		if (!is_dir($path))
+		{
+	         mkdir($path, 0700, true);
+		}
+		$this->WriteData();
+         
     }
     
     public function ReadData()
@@ -59,8 +56,10 @@ private $_fileName;
     
     public function WriteData()
     {
+		$file = fopen($this->_fileName, "w") or die("Unable to open file!");
         file_put_contents($this->_fileName, json_encode(self::$_usersList));
-		echo "file: " . $this->_fileName . "\n";
+		fclose($file);
+		echo ('Write completed.'. "\n");
     }
 }
 
