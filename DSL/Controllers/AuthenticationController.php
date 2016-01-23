@@ -37,12 +37,12 @@ class AuthenticationController
             $user = $this->FileDataConnector->getUser($this->login, $this->password);
             if ($user) {
                 $this->token = $this->createToken();
+                //$this->FileDataConnector->setToken('id', ) ;
             } else {
                 header("HTTP/1.0 401 Not Authorized");
                 return null;
             }
-            echo '<pre>';print_r($user);echo '</pre>';
-            //$this->FileDataConnector->setToken($)
+
         }
         else
         {
