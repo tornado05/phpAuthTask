@@ -14,7 +14,7 @@ $(document).ready(function(){
 
     $("#form_auth input[type=submit]").click(function(){
         var login = $("#login").val();
-        var password = $("#password").text;
+        var password = $("#password").val();
         var xhttp = new XMLHttpRequest();
         xhttp.open('POST', '../../index.php', false);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
