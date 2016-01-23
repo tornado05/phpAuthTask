@@ -14,12 +14,16 @@ $(document).ready(function(){
 
     $("#form_auth input[type=submit]").click(function(event){
         event.preventDefault();
-        console.log("click submit");
         $.post("../../index.php", {
             login: $("#login").val(),
             password: $("#password").val()
         }, function(data){
-
+            var token = jQuery.parseJSON(data);
+            sessionStorage.setItem("token",token.token);
+            $('#form_auth').css('visibility','hidden');
+            $("#success_login_pass").css("visibility","visible");
+        }).fail(function(){
+            $("#error_message").css("visibility","visible");
         });
     });
 
