@@ -20,7 +20,7 @@ final class Core extends AuthenticationController
 
     protected function  __construct()
     {
-
+		parent::__construct();
     }
 
 
