@@ -1,74 +1,66 @@
 <?php
 require_once  'AppConstants.php';
 
-/**
- * Class UserListGenerator provides with test set of passwords and logins as Associative Array
- */
 class UserListGenerator
 {
 	private static $_usersList = array(
     0 => array(
-        'LOGIN' => 'test0',
-        'PASSWORD' => 'testpass0',
-        'IP' => '',
-        'TOKEN' => '',
+        AppConstants::LOGIN => 'test0',
+        AppConstants::PASSWORD => 'testpass0',
+        AppConstants::IP => '',
+        AppConstants::TOKEN => '',
     ),    
     1 => array(
-        'LOGIN' => 'test1',
-        'PASSWORD' => 'testpass1',
-        'IP' => '',
-        'TOKEN' => '',
+        AppConstants::LOGIN => 'test1',
+        AppConstants::PASSWORD => 'testpass1',
+        AppConstants::IP => '',
+        AppConstants::TOKEN => '',
     ),    
     2 => array(
-        'LOGIN' => 'test2',
-        'PASSWORD' => 'testpass2',
-        'IP' => '',
-        'TOKEN' => '',
+        AppConstants::LOGIN => 'test2',
+        AppConstants::PASSWORD => 'testpass2',
+        AppConstants::IP => '',
+        AppConstants::TOKEN => '',
     ),    
     3 => array(
-        'LOGIN' => 'test3',
-        'PASSWORD' => 'testpass3',
-        'IP' => '',
-        'TOKEN' => '',
+        AppConstants::LOGIN => 'test3',
+        AppConstants::PASSWORD => 'testpass3',
+        AppConstants::IP => '',
+        AppConstants::TOKEN => '',
     ),    
     4 => array(
-        'LOGIN' => 'test4',
-        'PASSWORD' => 'testpass4',
-        'IP' => '',
-        'TOKEN' => '',
+        AppConstants::LOGIN => 'test4',
+        AppConstants::PASSWORD => 'testpass4',
+        AppConstants::IP => '',
+        AppConstants::TOKEN => '',
     ),    
 );
-    private $_fileName;
-
-    /**
-     * UserListGenerator default constructor.
-     * @access public
-     * @param string $fileName file name with set of passwords and logins to be set as default
-     */
+private $_fileName;
     public function __construct($fileName)
     {
+		$this->_fileName = '../phpauthtask/data/'. $fileName; 
+        if (!file_exists($this->_fileName)){
+             mkdir('../phpauthtask/data', 0700, true);
+             $this->_file = fopen($this->_fileName, "w") or die("Unable to open file!");
+             //file_put_contents($this->_fileName, json_encode($this->usersList));
+			 $this->WriteData();
+        }         /*
 		$path = '../phpauthtask/data/';
-        $this->_fileName = $path.$fileName;
+        $this->_fileName = $path . $fileName;
 		$file = fopen($this->_fileName, "w") or die("Unable to open file!");
-		file_put_contents($this->_fileName, json_encode(self::$_usersList));  //json_encode($this->_usersList));
-		fclose($file);
+		file_put_contents($this->_fileName, json_encode($this->usersList));
+		fclose($file);*/
     }
-
-    /**
-     * @return string encoded from JSON formatted file
-     */
+    
     public function ReadData()
     {
-        return json_encode(self::$_usersList, false);
+		return (json_decode(file_get_contents($this->_fileName), true));
     }
-
-    /**
-     * Puts all data to file
-     */
+    
     public function WriteData()
     {
 		//echo "file: " . $this->_fileName . "\n";
-        file_put_contents($this->_fileName, self::$_usersList);
+        file_put_contents($this->_fileName, json_encode(self::$_usersList));
     }
 }
 
