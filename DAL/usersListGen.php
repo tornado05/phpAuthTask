@@ -59,8 +59,8 @@ private $_fileName;
     
     public function WriteData()
     {
-		//echo "file: " . $this->_fileName . "\n";
         file_put_contents($this->_fileName, json_encode(self::$_usersList));
+		echo "file: " . $this->_fileName . "\n";
     }
 }
 
