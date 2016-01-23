@@ -7,7 +7,7 @@ require_once  'AppConstants.php';
 class UserListGenerator
 {
 	private static $_usersList = array(
-    0 => array(
+    '0 ' => array(
         AppConstants::LOGIN => 'test0',
         AppConstants::PASSWORD => 'testpass0',
         AppConstants::IP => '',
