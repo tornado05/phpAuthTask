@@ -52,7 +52,6 @@ class Logger implements ILogger
 		return self::$_instance;
 	}
 	
-
 	public function SetLogLevel($level) 
 	{
 		$this->_logLevel = $level;
