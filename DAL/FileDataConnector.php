@@ -21,6 +21,7 @@ class FileDataConnector implements IDataLayer
 				$usersList = new UserListGenerator(AppConstants::FILE_NAME);
 				self::$_data = $usersList->ReadData();
 				echo 'Data loaded. Data length: ' . count(self::$_data) . "\n";
+				//print_r(self::$_data);
 			}
 		}
 

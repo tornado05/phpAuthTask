@@ -11,13 +11,13 @@ require_once 'DAL/usersListGen.php';
 require_once 'DAL/AppConstants.php';
 
 $serializer = new UserListGenerator('userList.json');
-$serializer->WriteData();
+//$serializer->WriteData();
 $tmp = new DataLayer();
 //echo 'DataLayer: ' . $tmp;
 $connector = $tmp->GetConnector();
 
 $user = $connector->getUser('test0', 'testpass0');
 
-echo ('User: '. $user. "\n");
+echo ('User: '. $user[AppConstants::LOGIN]. "\n");
 
 
