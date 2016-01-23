@@ -12,18 +12,15 @@ $(document).ready(function(){
         $('#form_auth').css('visibility','visible');
     }
 
-    $("#form_auth input[type=submit]").click(function(){
-        var login = $("#login").val();
-        var password = $("#password").val();
-        var xhttp = new XMLHttpRequest();
-        xhttp.open('POST', '../../index.php', false);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send('login='+login+'&password='+password);
-        xhttp.onreadystatechange = function() {
-            if (xhttp.status == 200) {
-                sessionStorage.setItem("token",xhttp.responseText)
-            }
-        }
+    $("#form_auth input[type=submit]").click(function(event){
+        event.preventDefault();
+        console.log("click submit");
+        $.post("../../index.php", {
+            login: $("#login").val(),
+            password: $("#password").val()
+        }, function(data){
+
+        });
     });
 
 });
