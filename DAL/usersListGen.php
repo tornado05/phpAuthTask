@@ -47,12 +47,34 @@ class UserListGenerator
      */
     public function __construct($fileName)
     {
-		$path = '../phpauthtask/data/';
-        $this->_fileName = $path.$fileName;
-		$file = fopen($this->_fileName, "w") or die("Unable to open file!");
-		file_put_contents($this->_fileName, json_encode(self::$_usersList));  //json_encode($this->_usersList));
-		fclose($file);
+        $path = '/data/';
+
+        if ( $this->folder_exist($path)) {
+            $this->_fileName = $path . $fileName;
+            $file = fopen($this->_fileName, "w") or die("Unable to open file!");
+            file_put_contents($this->_fileName, json_encode(self::$_usersList));  //json_encode($this->_usersList));
+            fclose($file);
+        }
     }
+
+    /**
+     * Function checks existence of the folder
+     * @param string $folder input folder path to be checked
+     * @return bool|string returns absolute pathname or return FALSE if folder does not exist
+     */
+    public function folder_exist($folder)
+    {
+       $path = realpath($folder);
+        if($path !== false AND is_dir($path))
+        {
+            return $path;
+        }
+
+        // Path/folder does not exist
+        return false;
+    }
+
+
 
     /**
      * @return string encoded from JSON formatted file
