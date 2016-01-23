@@ -20,7 +20,7 @@ class FileDataConnector implements IDataLayer
 			{
 				$usersList = new UserListGenerator(AppConstants::FILE_NAME);
 				self::$_data = $usersList->ReadData();
-				echo 'Data loaded. Data length: ' . count(self::$_data) . "\n";
+				//echo 'Data loaded. Data length: ' . count(self::$_data) . "\n";
 				//print_r(self::$_data);
 			}
 		}
@@ -47,6 +47,9 @@ class FileDataConnector implements IDataLayer
 				if ($val[AppConstants::LOGIN] == $login && $val[AppConstants::PASSWORD] == $password)
 				{
 					$_user = $val;
+					$_user[AppConstants::ID] = (integer)$key;
+					//echo "<br/>";
+					//var_dump($_user);
 					break;
 				}
 			}

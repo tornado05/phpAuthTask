@@ -23,7 +23,6 @@ class AuthenticationController
     }
 	
     /**
-     *
      * @return
      */
     public function getUserData() {
@@ -33,16 +32,25 @@ class AuthenticationController
         $this->ip = $this->getIpFromRequest();
 
         $user = null;
-        if($this->token == null)
+        if(!$this->token)
         {
             $user = $this->FileDataConnector->getUser($this->login, $this->password);
-            $this->token = createToken();
+            if ($user) {
+                $this->token = $this->createToken();
+                //$this->FileDataConnector->setToken('id', ) ;
+            } else {
+                header("HTTP/1.0 401 Not Authorized");
+                return null;
+            }
+
         }
         else
         {
+            // TODO: authorize user here
             $user = $this->FileDataConnector->getUserByToken($this->token, $this->ip);
         }
-        return $user;
+
+        return json_encode(array("token" => $this->token));
     }
 
     private function createToken()
@@ -52,12 +60,12 @@ class AuthenticationController
 
     private function getLoginFromRequest()
     {
-        return $_REQUEST['login'];
+        return (isset($_REQUEST['login'])) ? $_REQUEST['login'] : null;
     }
 
     private function getPasswordFromRequest()
     {
-        return $_REQUEST['password'];
+        return (isset($_REQUEST['password'])) ? $_REQUEST['password'] : null;
     }
 
     private function getIpFromRequest()
@@ -67,6 +75,6 @@ class AuthenticationController
 
     private function getUserToken()
     {
-        return $_SERVER['token'];
+        return (isset($_SERVER['token'])) ? $_SERVER['token'] : null;
     }
 } 

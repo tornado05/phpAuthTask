@@ -18,6 +18,6 @@ $connector = $tmp->GetConnector();
 
 $user = $connector->getUser('test0', 'testpass0');
 
-echo ('User: '. $user[AppConstants::LOGIN]. "\n");
+//echo ('User: '. $user. "\n");
 
 
