@@ -1,5 +1,9 @@
 
 <?php
+
+/**
+ * Class AppConstants contains App DAL constants
+ */
 class AppConstants
 {
     const ID = 'Id';

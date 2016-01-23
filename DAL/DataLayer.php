@@ -2,11 +2,20 @@
 
     require_once 'AppConstants.php';
 	require_once 'FileDataConnector.php';
-    class DataLayer
+
+/**
+ * Class DataLayer provides User with the specific type connector to data storage
+ */
+class DataLayer
     {
         private static $_connector = NULL;
-    		
-        public static function Init($storageType)
+
+    /**
+     * Function is initializing App data storage
+     * @param string $storageType
+     * @return FileDataConnector|MySql|null return the specific type connector
+     */
+    public static function Init($storageType)
         {
 			echo 'StorageType: ' . $storageType . "\n";
 			echo 'Connector: ' . self::$_connector . "\n";
@@ -25,8 +34,12 @@
             }
             return self::$_connector;
         }
-		
-		public function GetConnector()
+
+    /**
+     * Function return the specific type connector
+     * @return FileDataConnector|MySql|null processes init procedure
+     */
+    public function GetConnector()
 		{
 			return self::Init(AppConstants::FILE_STORAGE);
 		}

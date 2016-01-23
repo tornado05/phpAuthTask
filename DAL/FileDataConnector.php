@@ -3,12 +3,18 @@
 	require_once "AppConstants.php";
 	require_once "IDataLayer.php";
 	require_once 'usersListGen.php';
-	
-	class FileDataConnector implements IDataLayer
-	{
-		private static $_data = NULL; 
 
-		private function getDataFromFile()
+/**
+ * Class FileDataConnector implements IDataLayer interface
+ */
+class FileDataConnector implements IDataLayer
+	{
+		private static $_data = NULL;
+
+	/**
+	 *Reads all data from file
+     */
+	private function getDataFromFile()
 		{
 			if (self::$_data == NULL)
 			{
@@ -18,12 +24,20 @@
 			}
 		}
 
-		public function __construct()
+	/**
+	 * FileDataConnector default constructor.
+     */
+	public function __construct()
 		{
 			$this->getDataFromFile();
 		}
 
-		public function getUser($login, $password)
+	/**
+	 * @param string $login input User's login to be searched
+	 * @param string $password input User's password to be searched
+	 * @return mixed return User entity or return NULL otherwise
+	 */
+	public function getUser($login, $password)
 		{
 			$_user = NULL;
 			foreach( self::$_data as $key => $val)
@@ -38,7 +52,13 @@
 			return $_user;
 		}
 
-		public function getUserByToken($token, $ip)
+	/**
+	 *
+	 * @param string $token input current User's token to be searched
+	 * @param string $ip input current User's IP to be searched
+	 * @return mixed return User entity or return NULL otherwise
+	 */
+	public function getUserByToken($token, $ip)
 		{
 			$_user = NULL;
 			foreach( self::$_data as $key => $val)
@@ -51,8 +71,11 @@
 			}
 			return $_user;
 		}
-
-		public function destroyToken($token)
+	/**
+	 * @param string $token current User's Token to be destroyed
+	 * @return mixed nothing returns
+	 */
+	public function destroyToken($token)
 		{
 			foreach( self::$_data as $key => $val)
 			{
@@ -64,7 +87,13 @@
 			}
 		}
 
-		public function setToken($id, $token, $ip)
+	/**
+	 * @param integer $id current User's ID
+	 * @param string $token current User's Token to be set
+	 * @param string $ip current User's IP
+	 * @return mixed nothing returns
+	 */
+	public function setToken($id, $token, $ip)
 		{
 			$_user = self::$_data[$id];
 			if ($_user != NULL && self::$_data[$id][AppConstants::IP] == $ip)
