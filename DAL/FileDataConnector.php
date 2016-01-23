@@ -10,7 +10,6 @@
 
 		private function getDataFromFile()
 		{
-			echo 'Getting data...' . "\n";
 			if (self::$_data == NULL)
 			{
 				$usersList = new UserListGenerator(AppConstants::FILE_NAME);
@@ -29,8 +28,8 @@
 			$_user = NULL;
 			foreach( self::$_data as $key => $val)
 			{
-				echo "\n\nLogin: " . $login . "\n\n";
-				if ($val[AppConstants::LOGIN] == $login && $val[AppConstants::LOGIN] == $password)
+				//echo "\n\nLogin: " . $login . "\n\n";
+				if ($val[AppConstants::LOGIN] == $login && $val[AppConstants::PASSWORD] == $password)
 				{
 					$_user = $val;
 					break;

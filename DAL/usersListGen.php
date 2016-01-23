@@ -39,7 +39,11 @@ class UserListGenerator
 private $_fileName;
     public function __construct($fileName)
     {
-        $this->_fileName = '/usr/local/www/php/php_dz/phpauthtask/data/' . $fileName;
+		$path = '../phpauthtask/data/';
+        $this->_fileName = $path . $fileName;
+		$file = fopen($this->_fileName, "w") or die("Unable to open file!");
+		file_put_contents($this->_fileName, json_encode($this->usersList));
+		fclose($file);
     }
     
     public function ReadData()

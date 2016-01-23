@@ -23,7 +23,6 @@
                         break;
                 }
             }
-
             return self::$_connector;
         }
 		
@@ -32,3 +31,4 @@
 			return self::Init(AppConstants::FILE_STORAGE);
 		}
 	}
+	
