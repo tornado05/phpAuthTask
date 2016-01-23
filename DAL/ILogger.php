@@ -6,6 +6,7 @@
  * Tim
  *
  **/
+
  interface ILogger
  {
     public function SetLogLevel($level);
