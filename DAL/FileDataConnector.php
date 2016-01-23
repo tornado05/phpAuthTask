@@ -48,8 +48,8 @@ class FileDataConnector implements IDataLayer
 				{
 					$_user = $val;
 					$_user[AppConstants::ID] = (integer)$key;
-					echo "<br/>";
-					var_dump($_user);
+					//echo "<br/>";
+					//var_dump($_user);
 					break;
 				}
 			}
