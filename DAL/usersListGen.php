@@ -1,6 +1,9 @@
 <?php
 require_once  'AppConstants.php';
 
+/**
+ * Class UserListGenerator provides with test set of passwords and logins as Associative Array
+ */
 class UserListGenerator
 {
 	private static $_usersList = array(
@@ -36,7 +39,13 @@ class UserListGenerator
     ),    
 );
 private $_fileName;
-    public function __construct($fileName)
+
+	/**
+     * UserListGenerator default constructor.
+     * @access public
+     * @param string $fileName file name with set of passwords and logins to be set as default
+     */
+	public function __construct($fileName)
     {
 		$path = '../phpauthtask/data/';
 		$this->_fileName = $path . $fileName; 
@@ -48,13 +57,19 @@ private $_fileName;
 		$this->WriteData();
          
     }
-    
+    /**
+     * @return string decoded from JSON formatted file
+     */    
     public function ReadData()
     {
 		return (json_decode(file_get_contents($this->_fileName), true));
     }
     
-    public function WriteData()
+
+    /**
+     * Puts encoded json data to file
+     */
+	public function WriteData()
     {
 		$file = fopen($this->_fileName, "w") or die("Unable to open file!");
         file_put_contents($this->_fileName, json_encode(self::$_usersList));

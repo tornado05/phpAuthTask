@@ -11,5 +11,17 @@ $(document).ready(function(){
     }else{
         $('#form_auth').css('visibility','visible');
     }
+
+    $("#form_auth input[type=submit]").click(function(event){
+        event.preventDefault();
+        console.log("click submit");
+        $.post("../../index.php", {
+            login: $("#login").val(),
+            password: $("#password").val()
+        }, function(data){
+
+        });
+    });
+
 });
 
