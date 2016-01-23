@@ -17,14 +17,14 @@ class DataLayer
      */
     public static function Init($storageType)
 	{
-		echo 'StorageType: ' . $storageType . "\n";
-		echo 'Connector: ' . self::$_connector . "\n";
+		//echo 'StorageType: ' . $storageType . "\n";
+		//echo 'Connector: ' . self::$_connector . "\n";
 		if (self::$_connector == NULL)
 		{
 			switch($storageType)
 			{
 				case AppConstants::FILE_STORAGE:
-					echo 'File';
+					//echo 'File';
 					self::$_connector = new FileDataConnector();
 					break;
 				case AppConstants::MYSQL_STORAGE:

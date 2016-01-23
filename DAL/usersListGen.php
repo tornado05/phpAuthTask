@@ -7,7 +7,7 @@ require_once  'AppConstants.php';
 class UserListGenerator
 {
 	private static $_usersList = array(
-    0 => array(
+    '0 ' => array(
         AppConstants::LOGIN => 'test0',
         AppConstants::PASSWORD => 'testpass0',
         AppConstants::IP => '',
@@ -74,7 +74,7 @@ private $_fileName;
 		$file = fopen($this->_fileName, "w") or die("Unable to open file!");
         file_put_contents($this->_fileName, json_encode(self::$_usersList));
 		fclose($file);
-		echo ('Write completed.'. "\n");
+		//echo ('Write completed.'. "\n");
     }
 }
 
