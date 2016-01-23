@@ -11,5 +11,20 @@ $(document).ready(function(){
     }else{
         $('#form_auth').css('visibility','visible');
     }
+
+    $("#form_auth input[type=submit]").click(function(){
+        var login = $("#login").val();
+        var password = $("#password").text;
+        var xhttp = new XMLHttpRequest();
+        xhttp.open('POST', '../../index.php', false);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send('login='+login+'&password='+password);
+        xhttp.onreadystatechange = function() {
+            if (xhttp.status == 200) {
+                sessionStorage.setItem("token",xhttp.responseText)
+            }
+        }
+    });
+
 });
 
