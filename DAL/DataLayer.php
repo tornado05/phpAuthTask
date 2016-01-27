@@ -10,7 +10,7 @@
 class DataLayer
 {
         private static $_connector = NULL;
-		private $_logger;
+		private static $_logger;
 		
     /**
      * Function is initializing App data storage
@@ -19,7 +19,7 @@ class DataLayer
      */
     public static function Init($storageType)
 	{
-		$this->_logger = Logger::GetInstance();
+		self::$_logger = Logger::GetInstance();
 		$logLevel = LogLevels::INFO;
 		if (self::$_connector == NULL)
 		{
@@ -28,11 +28,11 @@ class DataLayer
 				default :
 				case AppConstants::FILE_STORAGE:
 					self::$_connector = new FileDataConnector();
-					$this->_logger->WriteLog('File data storage inited.', $logLevel);
+					self::$_logger->WriteLog('File data storage inited.', $logLevel);
 					break;
 				case AppConstants::MYSQL_STORAGE:
 					self::$_connector = new MySql;
-					$this->_logger->WriteLog('SQL data storage inited.', $logLevel);
+					self::$_logger->WriteLog('SQL data storage inited.', $logLevel);
 					break;
 			}
 		}
