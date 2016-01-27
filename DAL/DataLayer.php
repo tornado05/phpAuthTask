@@ -2,6 +2,7 @@
 
     require_once 'AppConstants.php';
 	require_once 'FileDataConnector.php';
+	require_once 'Logger.php';
 
 /**
  * Class DataLayer provides User with the specific type connector to data storage
@@ -9,7 +10,8 @@
 class DataLayer
 {
         private static $_connector = NULL;
-
+		private $_logger;
+		
     /**
      * Function is initializing App data storage
      * @param string $storageType
@@ -17,18 +19,20 @@ class DataLayer
      */
     public static function Init($storageType)
 	{
-		//echo 'StorageType: ' . $storageType . "\n";
-		//echo 'Connector: ' . self::$_connector . "\n";
+		$this->_logger = Logger::GetInstance();
+		$logLevel = LogLevels::INFO;
 		if (self::$_connector == NULL)
 		{
 			switch($storageType)
 			{
+				default :
 				case AppConstants::FILE_STORAGE:
-					//echo 'File';
 					self::$_connector = new FileDataConnector();
+					$this->_logger->WriteLog('File data storage inited.', $logLevel);
 					break;
 				case AppConstants::MYSQL_STORAGE:
 					self::$_connector = new MySql;
+					$this->_logger->WriteLog('SQL data storage inited.', $logLevel);
 					break;
 			}
 		}
