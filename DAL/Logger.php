@@ -21,6 +21,27 @@
 		const NOTICE = 5;
 		const INFO = 6;
 		const DEBUG = 7;
+		
+		private static $_levelDescriptions = array(
+			LogLevels::EMERGENCY	=> 'Emergency',
+			LogLevels::ALERT		=> 'Alert',
+			LogLevels::CRITICAL		=> 'Critical',
+			LogLevels::ERROR		=> 'Error',
+			LogLevels::WARNING		=> 'Warning',
+			LogLevels::NOTICE		=> 'Notice',
+			LogLevels::INFO			=> 'Info',
+			LogLevels::DEBUG		=> 'Debug',
+		);
+		
+		/**
+		 * 
+		 * @param type $level
+		 * @return type
+		 */
+		public static function GetLevelDescription($level)
+		{
+			return self::$_levelDescriptions[$level];
+		}
 	}
 	
 	/**
@@ -71,7 +92,7 @@
 		{
 			if ($logLevel <= self::$_logLevel)
 			{
-				$this->Write($data);
+				$this->Write(LogLevels::GetLevelDescription($logLevel) . ': ' . $data);
 			}
 		}
 		
