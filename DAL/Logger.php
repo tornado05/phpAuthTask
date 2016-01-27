@@ -6,61 +6,78 @@
  * and open the template in the editor.
  */
 
-require_once 'ILogger.php';
+	require_once 'ILogger.php';
 
-class Logger implements ILogger
-{
-	private static $_instance = NULL;
-	private $_logLevel = 0;
-	private $_path = '../../phpauthuser/log/';
-	private $_fileName = 'authuser.log';
-	private static $_file = NULL;
-	
-	private function __construct()
+	/**
+	* Class LogLevels contains log levels constants
+	*/
+	class LogLevels
 	{
-		if (is_dir($this->_path))
+		const EMERGENCY = 0;
+		const ALERT = 1;
+		const CRITICAL = 2;
+		const ERROR = 3;
+		const WARNING = 4;
+		const NOTICE = 5;
+		const INFO = 6;
+		const DEBUG = 7;
+	}
+	
+	/**
+	* Class Logger created for writing logs to file
+	*/
+	class Logger implements ILogger
+	{
+		private static $_instance = NULL;
+		private static $_logLevel = LogLevels::INFO;
+		private $_path = '../phpauthtask/log/';
+		private $_fileName = 'authuser.log';
+		
+		private function __construct()
 		{
-			mkdir($this->_path);
+			if (!is_dir($this->_path))
+			{
+				mkdir($this->_path);
+			}
+		}
+
+		public static function GetInstance()
+		{
+			if (self::$_instance == NULL)
+			{
+				self::$_instance = new Logger();
+			}
+			return self::$_instance;
+		}
+
+		public function SetLogLevel($level) 
+		{
+			$this->_logLevel = $level;
+		}
+
+		public function Write($data)
+		{
+			date_default_timezone_set('Europe/Kiev');
+			$fullFName = $this->_path . '/' . $this->_fileName;
+			$date = new DateTime();
+			file_put_contents(
+					$fullFName, 
+					'[' . $date->format('Y-m-d H:i:s') . '] ' . $data . "\n", 
+					FILE_APPEND
+					);
+		}
+
+		public function WriteLog($data, $logLevel)
+		{
+			if ($logLevel <= self::$_logLevel)
+			{
+				$this->Write($data);
+			}
 		}
 		
 	}
 
-	private function __destruct()
-	{
-		if (is_file(self::$_file, "w"))
-		{
-			fclose(self::$_file);
-		}
-	}
+?>
 
-	private function openFile()
-	{
-		if (!is_file(self::$_file, "w"))
-		{
-			self::$_file = fopen($this->_fileName, "w") or 
-				die("Unable to open file: $this->_path/$this->_fileName !!!");
-			$this->Write('File opened\n');
-		}
-	}
-	
-	public static function GetInstance()
-	{
-		if (self::$_instance == NULL)
-		{
-			self::$_instance = new Logger();
-		}
-		return self::$_instance;
-	}
-	
-	public function SetLogLevel($level) 
-	{
-		$this->_logLevel = $level;
-	}
 
-	public function Write($data)
-	{
-		$this->openFile();
-		fwrite(self::$_file, date('d/m/Y h:i:s a', time()) . ': ' . $data);
-	}
 
-}
