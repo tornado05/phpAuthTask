@@ -34,9 +34,9 @@
 		);
 		
 		/**
-		 * 
-		 * @param type $level
-		 * @return type
+		 * returns text represent of log level
+		 * @param type $level - int log level
+		 * @return string
 		 */
 		public static function GetLevelDescription($level)
 		{
@@ -62,6 +62,10 @@
 			}
 		}
 
+		/**
+		 * @param none
+		 * @return instance of Logger class
+		 */
 		public static function GetInstance()
 		{
 			if (self::$_instance == NULL)
@@ -71,11 +75,22 @@
 			return self::$_instance;
 		}
 
+		/**
+		 * Set internal log level.
+		 * Not use for now
+		 * @param $level int log level
+		 * @return none
+		 */
 		public function SetLogLevel($level) 
 		{
 			$this->_logLevel = $level;
 		}
 
+		/**
+		 * Write log message data to file.
+		 * @param string $data
+		 * @return none
+		 */
 		public function Write($data)
 		{
 			date_default_timezone_set('Europe/Kiev');
@@ -88,6 +103,11 @@
 					);
 		}
 
+		/**
+		 * Check log level and write log message data to file.
+		 * @param string $data
+		 * @return none
+		 */
 		public function WriteLog($data, $logLevel)
 		{
 			if ($logLevel <= self::$_logLevel)
