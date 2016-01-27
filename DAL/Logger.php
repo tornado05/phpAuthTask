@@ -95,7 +95,6 @@
 				$this->Write(LogLevels::GetLevelDescription($logLevel) . ': ' . $data);
 			}
 		}
-		
 	}
 
 ?>
