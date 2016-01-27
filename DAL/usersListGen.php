@@ -1,5 +1,6 @@
 <?php
-require_once  'AppConstants.php';
+require_once 'AppConstants.php';
+require_once 'Logger.php';
 
 /**
  * Class UserListGenerator provides with test set of passwords and logins as Associative Array
@@ -37,9 +38,9 @@ class UserListGenerator
         AppConstants::IP => '',
         AppConstants::TOKEN => '',
     ),    
-);
-private $_fileName;
-
+	);
+	private $_fileName;
+	private $_logger;
 	/**
      * UserListGenerator default constructor.
      * @access public
@@ -47,21 +48,25 @@ private $_fileName;
      */
 	public function __construct($fileName)
     {
+		$this->_logger = Logger::GetInstance();
+		$logLevel = LogLevels::INFO;
+
 		$path = '../phpauthtask/data/';
 		$this->_fileName = $path . $fileName; 
-		
 		if (!is_dir($path))
 		{
 	         mkdir($path, 0700, true);
 		}
 		$this->WriteData();
-         
+		$this->_logger->WriteLog('User list generator - created', $logLevel);
     }
     /**
      * @return string decoded from JSON formatted file
      */    
     public function ReadData()
     {
+		$logLevel = LogLevels::INFO;
+		$this->_logger->WriteLog('Data readed', $logLevel);
 		return (json_decode(file_get_contents($this->_fileName), true));
     }
     
@@ -71,10 +76,11 @@ private $_fileName;
      */
 	public function WriteData()
     {
+		$logLevel = LogLevels::INFO;
 		$file = fopen($this->_fileName, "w") or die("Unable to open file!");
         file_put_contents($this->_fileName, json_encode(self::$_usersList));
 		fclose($file);
-		//echo ('Write completed.'. "\n");
+		$this->_logger->WriteLog('Data saved', $logLevel);
     }
 }
 
