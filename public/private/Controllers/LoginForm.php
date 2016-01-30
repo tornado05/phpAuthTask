@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/Label.php';
+require_once __DIR__ . '/Input.php';
 
 class LoginForm
 {
@@ -11,16 +12,34 @@ class LoginForm
 		$labelPassword = new Label();
 		$labelPassword->value = 'PASSWORD';
 		
+		$inputLogin = new Input();
+		$inputLogin->id = 'login';
+		$inputLogin->type = 'text';
+		$inputLogin->name = 'login';
+		$inputLogin->value = '';
+		
+		$inputPassword = new Input();
+		$inputPassword->id = 'password';
+		$inputPassword->type = 'password';
+		$inputPassword->name = 'password';
+		$inputPassword->value = '';
+		
+		$inputSubmit = new Input();
+		$inputSubmit->id = '';
+		$inputSubmit->type = 'submit';
+		$inputSubmit->name = '';
+		$inputSubmit->value = 'LogIn';
 		return 
 		'<form id="form_auth" method="post">'.
 			$labelLogin->RenderHTML().
-			'<br>
-			<input id="login" type="text" name="login">'.
+			'<br>'.
+			$inputLogin->RenderHTML().
 			'<br>'.
 			$labelPassword->RenderHTML().
-			'<br>
-			<input id="password" type="password" name="password"><br>
-			<input type="submit" value="LogIn">
-		</form>';
+			'<br>'.
+			$inputPassword->RenderHTML().
+			'<br>'.
+			$inputSubmit->RenderHTML().
+		'</form>';
 	} 
 }
