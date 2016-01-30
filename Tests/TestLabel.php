@@ -1,11 +1,12 @@
 <?php
 
 require_once __DIR__ . '/../public/private/Controllers/Label.php';
+$value = 'LOGIN';
 
-$expected = '<label>LOGIN</label>';
+$expected = '<label>'.$value.'</label>';
 
 $label = new Label();
-$label->value = 'LOGIN';
+$label->value = $value;
 
 $acquired = $label->RenderHTML();
 

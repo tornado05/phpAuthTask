@@ -2,13 +2,18 @@
 
 require_once __DIR__ . '/../public/private/Controllers/Input.php';
 
-$expected = '<input id="login" type="text" name="login" value="">';
+$id = 'login';
+$type = 'text';
+$name = 'login';
+$value = '';
+
+$expected = '<input id="'.$id.'" type="'.$type.'" name="'.$name.'" value="'.$value.'">';
 
 $input = new Input();
-$input->id = 'login';
-$input->type = 'text';
-$input->name = 'login';
-$input->value = '';
+$input->id = $id;
+$input->type = $type;
+$input->name = $name;
+$input->value = $value;
 
 $acquired = $input->RenderHTML();
 
