@@ -1,0 +1,240 @@
+<?php
+/**
+ * @file
+ * module guestbook
+ */
+
+/** 
+* Implements hook_help().
+*/
+function guest_book_help($path, $arg) {
+   switch ($path) {
+     case "admin/help#guest_book":
+       return '<p>'. t("Custom Module guestbook. This module creates a page guest book") .'</p>';
+       break;
+   }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function guest_book_menu() {
+  $items['guest_book_page'] = array(
+      'title' => 'Guestbook',
+      'page callback' => 'guest_book_page',
+      'page arguments' => array('access content'),
+      'access callback' => TRUE,
+      'menu_name' => 'main-menu',
+  );
+  return $items;
+}
+
+/**
+ * Implements comment array to html code.
+ */
+function comment_array_to_html($array){
+  $date = new DateTime();
+  $date->setTimestamp($array['created']);
+  $html_coments = "
+<div class=\"comment comment-by-node-author comment-by-viewer clearfix\">
+    <div class=\"attribution\">
+      <div class=\"submitted\">
+        <p class=\"commenter-name\">
+          <span>
+              <a href=\"/drupal/user/".$array['uid']."\" title=\"Информация о пользователе.\" class=\"username\">".$array['name']."</a>
+          </span>
+        </p>
+        <p class=\"comment-time\"><span>".date_format($date, 'Y-m-d H:i:s')."</span></p>
+      </div>
+    </div>
+  <div class=\"comment-text\">
+      <div class=\"comment-arrow\"></div>
+      <h3><label class=\"permalink\">".$array['subject']."</label></h3>
+      <div class=\"content\">
+              <div class=\"field field-name-comment-body field-type-text-long field-label-hidden\">
+                  <div class=\"field-items\">
+                      <div class=\"field-item even\">
+                        <p>".$array['comment_body_value']."</p>
+                      </div>
+                  </div>
+               </div>
+      </div> <!-- /.content -->
+    </div> <!-- /.comment-text -->
+</div>";
+  return $html_coments;
+}
+
+/**
+ *  implements a select of comments from database.
+ */
+function guest_book_page(){
+  $nodes = db_query("
+  SELECT n.subject, n.cid, n.uid, n.created, n.name, n.hostname, u.comment_body_value
+  FROM {comment} n INNER JOIN {field_data_comment_body} u ON n.cid = u.entity_id
+  WHERE n.thread = 'guest_book'", array(':guest_book' => 'guest_book'))->fetchAll();
+  $comments = array();
+  foreach($nodes as $val){
+    $comments[] = get_object_vars($val);
+  }
+  $html_coments = "";
+  foreach($comments as $item){
+    $html_coments .= "<div class=\"response\">";
+    $html_coments .= comment_array_to_html($item);
+
+    $html_coments .= "</div>";
+  }
+  $form = @drupal_render(drupal_get_form('guest_book_form'));
+  return $html_coments.$form;
+}
+
+/**
+ * Implements comment form.
+ */
+function guest_book_form($form, $form_state){
+  global $user;
+  $form = array();
+  if (property_exists($user, 'name')){
+    $homepage = '<a href="/user/'.$user->uid.'">'.$user->name.'</a>';
+    $form['author'] = array(
+        '#type' => 'item',
+        '#title' => t('Your name'),
+        '#value' => $user->name,
+        '#markup' => t($homepage),
+    );
+
+    $form['theme'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Theme'),
+    );
+
+    $form['comment'] = array(
+        '#type' => 'textarea',
+        '#title' => t('Message'),
+        '#size' => 2048,
+        '#description' => t('Description'),
+    );
+
+    $form['uid'] = array(
+        '#type' => 'hidden',
+        '#value' => $user->uid,
+    );
+
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => t('Send'),
+    );
+  }
+  return $form;
+}
+
+
+/**
+ * Implements submit function for comment form.
+ */
+function guest_book_form_submit($form,&$form_state){
+  global $user;
+  $theme = $form_state['values']['theme'];
+  $data = $form_state['values']['comment'];
+  $uid = $form_state['values']['uid'];
+  drupal_set_message(t('An guest_book_page_form_submit occurred and processing did not complete.'));
+
+  $comment = array(
+      'name' =>$user->name,
+      'homepage' => NULL,
+      'subject' => $theme,
+      'language' => LANGUAGE_NONE,
+      'uid' => $uid,
+      'thread' => "guest_book",
+      'created' => REQUEST_TIME,
+      'changed' => REQUEST_TIME,
+      'hostname' => ip_address(),
+  );
+
+  $nid = db_insert('comment')->fields($comment)->execute();
+
+  $field_data_comment_body = array(
+      'entity_type' => 'comment',
+      'bundle' => 'guest_book',
+      'entity_id' => $nid,
+      'revision_id' => $nid,
+      'language' => LANGUAGE_NONE,
+      'delta' => 0,
+      'comment_body_value' => $data,
+      'comment_body_format' => 'filtered_html',
+  );
+  db_insert('field_data_comment_body')->fields($field_data_comment_body)->execute();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

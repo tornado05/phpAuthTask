@@ -1,0 +1,5 @@
+; &Id:$
+name = Guestbook
+description = A my module guestbook
+version =  1.x dev
+core = 7.x
