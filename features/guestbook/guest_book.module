@@ -136,7 +136,6 @@ function guest_book_form_submit($form,&$form_state){
   $theme = $form_state['values']['theme'];
   $data = $form_state['values']['comment'];
   $uid = $form_state['values']['uid'];
-  drupal_set_message(t('An guest_book_page_form_submit occurred and processing did not complete.'));
 
   $comment = array(
       'name' =>$user->name,
@@ -165,76 +164,5 @@ function guest_book_form_submit($form,&$form_state){
   db_insert('field_data_comment_body')->fields($field_data_comment_body)->execute();
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//TODO find and fix errors
+//TODO create TODO
