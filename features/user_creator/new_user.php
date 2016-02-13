@@ -4,7 +4,7 @@
 
 </head>
 <body>
-<form method="POST">
+<form name="new_form" method="POST">
     <label>Fill all fields to add new user:</label><br /><br/>
 
     <label for="new_login">New user login</label><br>
@@ -21,6 +21,8 @@
 
 </form>
 <?php
+
+
 
 require_once '../../DAL/AppConstants.php';
 
@@ -49,11 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         echo "Something wrong with your credentials!";
     }
-
-
-
-
-
 }
 ?>
 <br />
